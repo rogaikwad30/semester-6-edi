@@ -11,9 +11,10 @@ module.exports.postSensorData = async (req, res) => {
     const time = new Date();
     const time_ep = time.getTime();
     const obj = await sensorDataModel.create({
-      Value: 34,
+      Value: req.body.Value || -1,
       LogTime: time,
       LogTime_EP: time_ep,
+      bypass: req.body.bypass || false
     });
     res.json({
       status: 200,

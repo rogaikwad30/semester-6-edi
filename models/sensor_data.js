@@ -12,6 +12,11 @@ let sensorDataSchema = new mongoose.Schema({
         type: Number, 
         required: [true, "can't be blank"]
     },
+    bypass: {
+        type: Boolean,
+        default: false,
+        required: [true, "can't be blank"]
+    }
 })
 
 let sensorDataModel =  mongoose.model("Archive-SensorData", sensorDataSchema)
