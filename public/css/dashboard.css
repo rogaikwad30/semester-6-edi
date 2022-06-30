@@ -1,0 +1,30 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.charts{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    border: 1px solid red;
+}
+
+
+.charts .item {
+    border: 2px solid green;
+    max-width: 600px;
+    height: 420px;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.charts .item .config {
+    border: 1px darkblue dashed;
+}

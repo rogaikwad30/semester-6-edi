@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../public/css/dashboard.css">
+    <link rel="stylesheet" href="../public/css/navbar.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+    <header class="header" id="header">
+        <nav class="navbar container">
+            <a href="./index.html" class="brand">Brand</a>
+            <div class="burger" id="burger">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </div>
+            <span class="overlay"></span>
+            <div class="menu" id="menu">
+                <ul class="menu-inner">
+                    <li class="menu-item"><a class="menu-link" href="#">Home</a></li>
+                    <li class="menu-item"><a class="menu-link" href="#">Profile</a></li>
+                    <li class="menu-item"><a class="menu-link" href="#">Pricing</a></li>
+                    <li class="menu-item"><a class="menu-link" href="#">Project</a></li>
+                    <li class="menu-item"><a class="menu-link" href="#">Contact</a></li>
+                </ul>
+            </div>
+            <button><i class="fa fa-search search-toggle"></i></button>
+            <form class="search-block">
+                <span><i class="fa fa-arrow-back search-cancel"></i></span>
+                <input type="search" name="search" class="search-input" placeholder="Search here..." autofocus>
+            </form>
+        </nav>
+    </header>
+
+    <section class="charts">
+        <div class="item">
+            <section class="graph">
+                <canvas  id="chart" > </canvas>
+            </section>
+
+            <section class="config">
+                <form action="">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo modi placeat sint et facere. Facere quo libero, nobis aut odio eveniet iste incidunt, suscipit saepe eos corporis accusamus natus ipsa?
+                </form>
+            </section>
+        </div>
+    </section>
+</body>
+<script src="../public/js/navbar.js"></script>
+<script>
+    var ctx = document.getElementById("chart");
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["CS", "IT", "ECE", "EE", "ME", "BE"],
+            datasets: [
+                {
+                    label: '# of students',
+                    data: [105, 124, 78, 91, 62, 56],
+                    backgroundColor: ['rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+</script>
+
+</html>
