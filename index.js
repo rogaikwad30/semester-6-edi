@@ -1,8 +1,8 @@
 const express = require("express")
 const handlers = require("./controllers/handlers")
 const mongodb = require("./services/mongodb")
-const path = require("path")
-const ExpressPort = 5000
+const path = require("path") 
+const cors = require('cors');
 
 const app = express()
 app.use(express.static(path.join(__dirname, 'public')))
@@ -10,6 +10,7 @@ app.set("view engine", "ejs")
 
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
+app.use(cors());
 var urlBodyEncoder = bodyParser.urlencoded({ extended: false })
 
 app.get("/", urlBodyEncoder, handlers.getHome)
@@ -30,9 +31,7 @@ app.post("/", urlBodyEncoder, handlers.postTest)
 // parser.on('data', data =>{
 //   console.log('got word from arduino:', data);
 // });
-
+const ExpressPort = process.env.PORT || 3000;
 app.listen(ExpressPort, ()=>{
     console.log(`Server Started at Port - `, ExpressPort)
 })
-
-
