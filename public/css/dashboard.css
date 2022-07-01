@@ -34,3 +34,93 @@
     max-width: 400px;
     margin: 40px 20px;
 }
+
+
+.opposites {
+    position: relative;
+    width: 60px;
+    height: 60px;
+  }
+  .opposites {
+    animation: opposites 2.5s ease-out 0s infinite;  
+  }
+  .tl, .tr, .br, .bl {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+  }
+  .tl, .tr {
+    top: 0; 
+  }
+  .tr, .br {
+    left: 30px; 
+  }
+  .tl, .br {
+    animation: tlbr 2.5s ease-out 0s infinite;
+  }
+  .br, .bl {
+    top: 30px; 
+  }
+  .tl, .bl {
+    left: 0; 
+  }
+  .tr, .bl {
+    animation: trbl 2.5s ease-out 0s infinite;
+  }
+  .tl {
+    background: red;
+    transform-origin: bottom right;
+  }
+  .tr {
+    background: green; 
+    transform-origin: bottom left;
+  }
+  .br {
+    background: dodgerblue; 
+    transform-origin: top left;
+  }
+  .bl {
+    background: gold; 
+    transform-origin: top right;
+  }
+  
+  @keyframes tlbr {
+    0% {transform: rotate(0);}
+    20% {transform: rotate(90deg);}
+    40% {transform: rotate(90deg);}
+    60% {transform: rotate(0);}
+  }
+  @keyframes trbl {
+    20% {transform: rotate(0);}
+    40% {transform: rotate(90deg);}
+    60% {transform: rotate(90deg);}
+    80% {transform: rotate(0);}
+  }
+  @keyframes opposites {
+    80% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+  }
+  
+  
+  body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #262626;
+  }
+  * {
+    margin: 0; 
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+
+  #loader2{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      flex-wrap: wrap;
+      flex-direction: row;
+  }
