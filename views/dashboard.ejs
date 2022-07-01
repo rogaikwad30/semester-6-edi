@@ -210,11 +210,11 @@
 <script>
     let loader2 = document.getElementById("loader2")
     var ctx2 = document.getElementById("chart2");
-    let labels2 = [1,2,3]
-    let values2 = [1,23,3]
-    setInterval(()=>{
-        // console.log("Fetching Live Data")
-        loader2.style.display = "block";
+
+
+    let fetchLiveData = ()=>{
+ // console.log("Fetching Live Data")
+ loader2.style.display = "block";
         fetch('/live-line-chart-data')
         .then(response => response.json())
         .then(data => {
@@ -272,6 +272,11 @@
                 ]
             },
             options: {
+                elements: {
+                point: {
+                    radius: 0
+                }
+            },
                 scales: {
                     yAxes: [{
                         ticks: {
@@ -283,7 +288,12 @@
         });
     });
 
+    }
+    setInterval(()=>{
+       fetchLiveData()
     }, 15000)
+
+    fetchLiveData()
 </script>
 
 <script>
@@ -376,7 +386,7 @@
                 labels: data['labels'],
                 datasets: [
                     {
-                        label: '# Frequency',
+                        label: '# Frequency - X',
                         data: data['valuesX'],
                         backgroundColor: ['rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
@@ -420,6 +430,11 @@
                 ]
             },
             options: {
+                elements: {
+                point: {
+                    radius: 0
+                }
+            },
                 scales: {
                     yAxes: [{
                         ticks: {
