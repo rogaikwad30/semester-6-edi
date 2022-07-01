@@ -1,16 +1,19 @@
 const sensorDataModel = require("../models/sensor_data");
 const { checkErrors } = require("./validations");
 const validations = require("./validations").checkErrors;
+const idealDataModel = require("../models/ideal_data");
 
 module.exports.getHome = async (req, res) => {
   try {
-    const all = await sensorDataModel.find({}, {"LogTime":1,"Value":1, "_id":0}).sort({"LogTime_EP":-1}).limit(8)
-    all.reverse()
-    let data = {}
-    for(let doc of all){
-      data[doc["LogTime"]]  = doc["Value"]
+    let idealData = await idealDataModel.find({}, {"LogTime":1,"x":1, "y":1, "z" : 1, "_id":0, "LogTime_EP":1}).sort({"LogTime_EP":-1}).limit(3050)
+    idealData.reverse()
+    let finalData_x = {}
+    let finalData_y = {}
+    for(let doc of idealData){
+      finalData_x[doc["LogTime_EP"]]  = doc["x"]
+      finalData_y[doc["LogTime_EP"]]  = doc["y"]
     }
-    res.render("dashboard", {'liveData' : data })
+    res.render("dashboard", {'liveDataX' : finalData_x , liveDataY:finalData_y})
   } catch (error) {
     res.status(400).json({
       "error" : error.message
@@ -26,7 +29,10 @@ module.exports.postSensorData = async (req, res) => {
       Value: req.body.Value || -1,
       LogTime: time,
       LogTime_EP: time_ep,
-      bypass: req.body.bypass || false
+      bypass: req.body.bypass || false,
+      x: req.body.x || 0,
+      y: req.body.y || 0,
+      z: req.body.z || 0
     });
     res.json({
       status: 200,
@@ -65,11 +71,6 @@ module.exports.SaveSensorDataSerialPort = async ( inputData ) => {
   }
 };
 
-module.exports.postTest = async(req,res) => {
-  console.log(req.body)
-  res.send(req.body)
-}
-
 module.exports.getLineChartData = async (req,res) => {
   try {
     const all = await sensorDataModel.find({}, {"LogTime":1,"Value":1, "_id":0}).sort({"LogTime_EP":-1}).limit(8)
@@ -85,7 +86,6 @@ module.exports.getLineChartData = async (req,res) => {
     })
   }
 }
-
 
 module.exports.getPieData = async (req, res) => {
   try {

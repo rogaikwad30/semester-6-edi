@@ -15,9 +15,6 @@ var urlBodyEncoder = bodyParser.urlencoded({ extended: false })
 
 app.get("/", urlBodyEncoder, handlers.getHome)
 app.post("/save-sensor-data", urlBodyEncoder, handlers.postSensorData)
-
-app.post("/", urlBodyEncoder, handlers.postTest)
-
 // let SerialPort = require('serialport').SerialPort;  
 // const { ReadlineParser } = require('@serialport/parser-readline')
 // const port = new SerialPort({ 

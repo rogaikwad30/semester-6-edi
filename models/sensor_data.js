@@ -4,6 +4,18 @@ let sensorDataSchema = new mongoose.Schema({
         type: Number, 
         required: [true, "can't be blank"]
     },
+    x: {
+        type: Number, 
+        required: [true, "can't be blank"]
+    },
+    y: {
+        type: Number, 
+        required: [true, "can't be blank"]
+    },
+    z: {
+        type: Number, 
+        required: [true, "can't be blank"]
+    },
     LogTime : {
         type: Date, 
         required: [true, "can't be blank"]
