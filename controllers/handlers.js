@@ -73,7 +73,30 @@ module.exports.SaveSensorDataSerialPort = async ( inputData ) => {
 
 module.exports.getLineChartData = async (req,res) => {
   try {
-    const all = await sensorDataModel.find({}, {"LogTime":1,"Value":1, "_id":0, "x":1,"y":1,"z":1,"LogTime_EP":1}).sort({"LogTime_EP":-1}).limit(8)
+    const all = await sensorDataModel.find({}, {"LogTime":1,"Value":1, "_id":0, "x":1,"y":1,"z":1,"LogTime_EP":1}).sort({"LogTime_EP":-1}).limit(1000)
+    all.reverse()
+    let data = {
+      "labels" : [],
+      "valuesX" : [],
+      "valuesY" : [] 
+    }
+    for(let doc of all){
+      data["labels"].push(doc["LogTime"])
+      data["valuesX"].push(doc["x"])
+      data["valuesY"].push(doc["y"])
+    }
+
+    res.send({'liveData' : data })
+  } catch (error) {
+    res.status(400).json({
+      "error" : error.message
+    })
+  }
+}
+
+module.exports.getBarChartData = async (req,res) => {
+  try {
+    const all = await sensorDataModel.find({}, {"LogTime":1,"Value":1, "_id":0, "x":1,"y":1,"z":1,"LogTime_EP":1}).sort({"LogTime_EP":-1}).limit(12)
     all.reverse()
     let data = {
       "labels" : [],
