@@ -31,7 +31,7 @@ app.post("/save-sensor-data", urlBodyEncoder, handlers.postSensorData)
 
 
 app.get("/live-line-chart-data", urlBodyEncoder, handlers.getLineChartData)
-app.get("/pie-chart-data", urlBodyEncoder, handlers.getPieData)
+app.post("/ideal-pie-chart-data", urlBodyEncoder, handlers.getPieData)
 const ExpressPort = process.env.PORT || 3000;
 app.listen(ExpressPort, ()=>{
     console.log(`Server Started at Port - `, ExpressPort)

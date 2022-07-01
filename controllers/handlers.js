@@ -85,7 +85,7 @@ module.exports.getLineChartData = async (req,res) => {
       data["valuesX"].push(doc["x"])
       data["valuesY"].push(doc["y"])
     }
-    
+
     res.send({'liveData' : data })
   } catch (error) {
     res.status(400).json({
@@ -95,12 +95,11 @@ module.exports.getLineChartData = async (req,res) => {
 }
 
 module.exports.getPieData = async (req, res) => {
-  try {
+  try { 
     let config = {
-      "groupby" : null || "",
-      "column" : null || "Value",
-      "aggregator" :  null || "first",
-
+      "groupby" : req.body.groupby || "",
+      "column" : req.body.column || "Value",
+      "aggregator" :  req.body.aggr || "first",
     }
 
     let grpBy = "";
@@ -114,9 +113,7 @@ module.exports.getPieData = async (req, res) => {
 
     let value = {}
     value[agg] =  "$" + config["column"]
- 
-    
-    let all = await sensorDataModel.aggregate([
+    let all = await idealDataModel.aggregate([
       {
         "$group" : {
           "_id" : grpBy,
@@ -125,12 +122,32 @@ module.exports.getPieData = async (req, res) => {
       }
     ])
 
+    let labels = []
+    let values = []
 
     for(let i of all){
-      console.log(i)
+      labels.push(i["_id"] + "Ideal Data")
+      values.push(i["value"])
     }
 
-    res.send(all)
+    let allActual = await sensorDataModel.aggregate([
+      {
+        "$group" : {
+          "_id" : grpBy,
+          value
+        }
+      }
+    ])
+
+    for(let i of allActual){
+      labels.push( i["_id"] + "Actual Data")
+      values.push(i["value"]/100)
+    }
+
+    res.status(200).json({
+      "labels" : labels,
+      "values" : values
+    })
 
   } catch (error) {
     res.status(400).json({
