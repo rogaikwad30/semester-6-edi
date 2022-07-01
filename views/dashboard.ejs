@@ -1,18 +1,327 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="/css/dashboard.css">
-</head>
-<body>
-    <h1>Hey</h1>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <form action="" method="POST">
-        <input type="text" name="name">
-        <input type="text" name="age">
-        <input type="submit">
-    </form>
+</head>
+
+<body>
+    <header class="header" id="header">
+        <nav class="navbar container">
+            <a href="/" class="brand">Brand</a>
+            <div class="burger" id="burger">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </div>
+            <span class="overlay"></span>
+            <div class="menu" id="menu">
+                <ul class="menu-inner">
+                    <li class="menu-item"><a class="menu-link" href="#">Home</a></li>
+                    <li class="menu-item"><a class="menu-link" href="#">Profile</a></li>
+                    <li class="menu-item"><a class="menu-link" href="#">Pricing</a></li>
+                    <li class="menu-item"><a class="menu-link" href="#">Project</a></li>
+                    <li class="menu-item"><a class="menu-link" href="#">Contact</a></li>
+                </ul>
+            </div>
+            <button><i class="fa fa-search search-toggle"></i></button>
+            <form class="search-block">
+                <span><i class="fa fa-arrow-back search-cancel"></i></span>
+                <input type="search" name="search" class="search-input" placeholder="Search here..." autofocus>
+            </form>
+        </nav>
+    </header>
+
+    <section class="charts">
+        <div class="item">
+            <section class="graph">
+                <canvas  id="chart" > </canvas>
+            </section>
+
+            <section class="config" >
+                <form action="">
+                    <h6 class="text-center p-3">
+                        Live Time Vibrational Analysis
+                    </h6>
+                </form>
+            </section>
+        </div>
+
+        <div class="item">
+            <section class="graph">
+                <canvas  id="chart2" > </canvas>
+            </section>
+
+            <section class="config">
+                <form action="">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo modi placeat sint et facere. Facere quo libero, nobis aut odio eveniet iste incidunt, suscipit saepe eos corporis accusamus natus ipsa?
+                </form>
+            </section>
+        </div>
+    </section>
+
+
+    <section class="charts my-5">
+        <div class="item pie1">
+            <section class="graph">
+                <canvas  id="pieChart1" > </canvas>
+            </section>
+
+            <section class="config">
+                <form action="">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo modi placeat sint et facere. Facere quo libero, nobis aut odio eveniet iste incidunt, suscipit saepe eos corporis accusamus natus ipsa?
+                </form>
+            </section>
+        </div>
+
+        <div class="item pie2">
+            <section class="graph">
+                <canvas  id="pieChart2" > </canvas>
+            </section>
+
+            <section class="config">
+                <form action="">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo modi placeat sint et facere. Facere quo libero, nobis aut odio eveniet iste incidunt, suscipit saepe eos corporis accusamus natus ipsa?
+                </form>
+            </section>
+        </div>
+        <div class="item pie3">
+            <section class="graph">
+                <canvas  id="pieChart3" > </canvas>
+            </section>
+
+            <section class="config">
+                <form action="">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo modi placeat sint et facere. Facere quo libero, nobis aut odio eveniet iste incidunt, suscipit saepe eos corporis accusamus natus ipsa?
+                </form>
+            </section>
+        </div>
+    </section>
+
+
 </body>
+<script src="../public/js/navbar.js"></script>
+<script>
+    var ctx = document.getElementById("chart");
+    var ctx2 = document.getElementById("chart2");
+    var pieChart1 = document.getElementById("pieChart1");
+    var pieChart2 = document.getElementById("pieChart2");
+    var pieChart3 = document.getElementById("pieChart3");
+    
+
+    var strData = '<%- JSON.stringify(liveData) %>'
+    var parseData = JSON.parse(strData)
+
+    let labels = []
+    let values = []
+    for(let i in parseData){
+        labels.push(i.split("GMT")[0]) 
+        console.log("hi : ",typeof(i))
+        values.push(parseData[i])
+    } 
+
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: '# Vibrational Frequency',
+                    data: values,
+                    backgroundColor: ['rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    var myChart2 = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels:labels,
+            datasets: [
+                {
+                    label: '# Frequency',
+                    data: values,
+                    backgroundColor: ['rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    var pie1 = new Chart(pieChart1, {
+        type: 'doughnut',
+        data: {
+            labels: ["CS", "IT", "ECE", "EE", "ME", "BE"],
+            datasets: [
+                {
+                    label: '# of students',
+                    data: [105, 124, 78, 91, 62, 56],
+                    backgroundColor: ['rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    var pie2 = new Chart(pieChart2, {
+        type: 'pie',
+        data: {
+            labels: ["CS", "IT", "ECE", "EE", "ME", "BE"],
+            datasets: [
+                {
+                    label: '# of students',
+                    data: [105, 124, 78, 91, 62, 56],
+                    backgroundColor: ['rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    var pie3 = new Chart(pieChart3, {
+        type: 'doughnut',
+        data: {
+            labels: ["CS", "IT", "ECE", "EE", "ME", "BE"],
+            datasets: [
+                {
+                    label: '# of students',
+                    data: [105, 124, 78, 91, 62, 56],
+                    backgroundColor: ['rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+</script>
+
 </html>

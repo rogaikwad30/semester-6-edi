@@ -31,6 +31,10 @@ app.post("/", urlBodyEncoder, handlers.postTest)
 // parser.on('data', data =>{
 //   console.log('got word from arduino:', data);
 // });
+
+
+app.get("/line-chart-data", urlBodyEncoder, handlers.getLineChartData)
+app.get("/pie-chart-data", urlBodyEncoder, handlers.getPieData)
 const ExpressPort = process.env.PORT || 3000;
 app.listen(ExpressPort, ()=>{
     console.log(`Server Started at Port - `, ExpressPort)

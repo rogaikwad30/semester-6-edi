@@ -1,8 +1,7 @@
 *{
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
-    overflow: hidden;
+    box-sizing: border-box; 
 }
 
 .charts{
@@ -17,14 +16,21 @@
 
 .charts .item {
     border: 2px solid green;
-    max-width: 600px;
+    width: 600px;
     height: 420px;
     display: flex;
     align-self: center;
     justify-content: center;
     flex-direction: column;
+    margin: 20px 20px;
+    padding: 15px 25px;
 }
 
 .charts .item .config {
     border: 1px darkblue dashed;
+}
+
+.charts .pie1, .charts .pie2, .charts .pie3{
+    max-width: 400px;
+    margin: 40px 20px;
 }
