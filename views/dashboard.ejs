@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
     <header class="header" id="header">
         <nav class="navbar container">
@@ -56,19 +58,19 @@
             <section class="graph">
                 <canvas id="chart2"> </canvas>
             </section>
-            <section id="loader2" style="position: relative;"> 
+            <section id="loader2" style="position: relative;">
                 <div class="opposites" style="position: absolute;
                 top: 50%; bottom: 50%; transform: translate(-50%,-50%);">
                     <div class="opposites bl"></div>
                     <div class="opposites tr"></div>
                     <div class="opposites br"></div>
                     <div class="opposites tl"></div>
-                </div>    
+                </div>
             </section>
         </div>
     </section>
     <section class="charts my-5 py-3">
-        
+
         <div class="item" style="width: 700px; margin-right: 190px ;">
             <section class="graph">
                 <canvas id="chart4"> </canvas>
@@ -84,10 +86,10 @@
             <section class="config my-3">
                 <div>
                     <p class="d-block w-100">Select GroupBy Column</p>
-                    <select class="d-block w-100" name="groupby" id="groupby"> 
-                        <option value=""  >Default</option>
-                        <option value="LogTime"  >Logtime</option>
-                        <option value="LogTime"  >Type-1</option>
+                    <select class="d-block w-100" name="groupby" id="groupby">
+                        <option value="">Default</option>
+                        <option value="LogTime">Logtime</option>
+                        <option value="LogTime">Type-1</option>
                     </select>
 
                     <p class="d-block w-100">Select Column</p>
@@ -114,7 +116,7 @@
                 </div>
             </section>
         </div>
- 
+
 
     </section>
 </body>
@@ -212,85 +214,86 @@
     var ctx2 = document.getElementById("chart2");
 
 
-    let fetchLiveData = ()=>{
- // console.log("Fetching Live Data")
- loader2.style.display = "block";
+    let fetchLiveData = () => { 
+        // console.log("Fetching Live Data")
+        loader2.style.display = "block";
         fetch('/live-line-chart-data')
-        .then(response => response.json())
-        .then(data => {
-            // console.log("Response is : ",data)
-            data = data["liveData"]
-            var ctx2 = document.getElementById("chart2");
-            loader2.style.display = "none";
-            var myChart2 = new Chart(ctx2, {
-            type: 'line',
-            data: {
-                labels: data['labels'],
-                datasets: [
-                    {
-                        label: '# Frequency',
-                        data: data['valuesX'],
-                        backgroundColor: ['rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
+            .then(response => response.json())
+            .then(data => {
+                 
+                // console.log("Response is : ",data)
+                data = data["liveData"]
+                var ctx2 = document.getElementById("chart2");
+                loader2.style.display = "none";
+                var myChart2 = new Chart(ctx2, {
+                    type: 'line',
+                    data: {
+                        labels: data['labels'],
+                        datasets: [
+                            {
+                                label: '# Frequency',
+                                data: data['valuesX'],
+                                backgroundColor: ['rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
+                                ],
 
-                        borderColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 1
+                                borderColor: [
+                                    'rgba(255,99,132,1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                            },
+                            {
+                                label: '# Frequency - Y',
+                                data: data['valuesY'],
+                                backgroundColor: ['rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
+                                ],
+
+                                borderColor: [
+                                    'rgba(255,99,132,1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                            }
+                        ]
                     },
-                    {
-                        label: '# Frequency - Y',
-                        data: data['valuesY'],
-                        backgroundColor: ['rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-
-                        borderColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 1
-                    }
-                ]
-            },
-            options: {
-                elements: {
-                point: {
-                    radius: 0
-                }
-            },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
+                    options: {
+                        elements: {
+                            point: {
+                                radius: 0
+                            }
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
                         }
-                    }]
-                }
-            }
-        });
-    });
+                    }
+                });
+            });
 
     }
-    setInterval(()=>{
-       fetchLiveData()
+    setInterval(() => {
+        fetchLiveData()
     }, 15000)
 
     fetchLiveData()
@@ -298,156 +301,160 @@
 
 <script>
     var pieChart1 = document.getElementById("pieChart1");
-    var pie1 = new Chart(pieChart1,{})
-    let getPieData = ()=>{
-     
-    
-    let configPie1 = {
-      "groupby" : document.getElementById("groupby").value || "",
-      "column" : document.getElementById("column").value || "x",
-      "aggr" :  document.getElementById("aggr").value || "first",
-    } 
+    var pie1 = new Chart(pieChart1, {})
+    let getPieData = () => {
 
-    console.log("Pie Chart Req Body : " , configPie1)
 
-    fetch('/ideal-pie-chart-data', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(configPie1),
-    })
-    .then(response => response.json())
-    .then(data => {
-        pie1.destroy() 
-        pie1 = new Chart(pieChart1, {
-        type: 'doughnut',
-        data: {
-            labels: data["labels"],
-            datasets: [
-                {
-                    label: '# Columb',
-                    data: data["values"],
-                    backgroundColor: ['rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                    ],
-
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }
-            ]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
+        let configPie1 = {
+            "groupby": document.getElementById("groupby").value || "",
+            "column": document.getElementById("column").value || "x",
+            "aggr": document.getElementById("aggr").value || "first",
         }
-    });
-  
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+
+        console.log("Pie Chart Req Body : ", configPie1)
+
+        fetch('/ideal-pie-chart-data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(configPie1),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data["values"][1] > data["values"][0]){
+                    let diff = data["values"][1] - data["values"][0]
+                    window.alert(`High Vibrational Alert with Deviation of  : ${diff}`)
+                }
+                pie1.destroy()
+                pie1 = new Chart(pieChart1, {
+                    type: 'doughnut',
+                    data: {
+                        labels: data["labels"],
+                        datasets: [
+                            {
+                                label: '# Columb',
+                                data: data["values"],
+                                backgroundColor: ['rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                ],
+
+                                borderColor: [
+                                    'rgba(255,99,132,1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
 
-    document.getElementById("proceed").addEventListener("click", ()=>{
+    document.getElementById("proceed").addEventListener("click", () => {
         console.log("Proceed Clicked")
         getPieData()
     })
 
     getPieData()
-    
-    
+
+
 </script>
 
-<script> 
-        fetch('/live-bar-chart-data')
+<script>
+    fetch('/live-bar-chart-data')
         .then(response => response.json())
-        .then(data => { 
+        .then(data => {
             data = data["liveData"]
-            var ctx4 = document.getElementById("chart4"); 
+            var ctx4 = document.getElementById("chart4");
             var myChart4 = new Chart(ctx4, {
-            type: 'bar',
-            data: {
-                labels: data['labels'],
-                datasets: [
-                    {
-                        label: '# Frequency - X',
-                        data: data['valuesX'],
-                        backgroundColor: ['rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
+                type: 'bar',
+                data: {
+                    labels: data['labels'],
+                    datasets: [
+                        {
+                            label: '# Frequency - X',
+                            data: data['valuesX'],
+                            backgroundColor: ['rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
 
-                        borderColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 1
-                    },
-                    {
-                        label: '# Frequency - Y',
-                        data: data['valuesY'],
-                        backgroundColor: ['rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: '# Frequency - Y',
+                            data: data['valuesY'],
+                            backgroundColor: ['rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
 
-                        borderColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 1
-                    }
-                ]
-            },
-            options: {
-                elements: {
-                point: {
-                    radius: 0
-                }
-            },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
                         }
-                    }]
+                    ]
+                },
+                options: {
+                    elements: {
+                        point: {
+                            radius: 0
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
                 }
-            }
+            });
         });
-    });
- 
- 
+
+
 </script>
- 
+
 
 </html>
